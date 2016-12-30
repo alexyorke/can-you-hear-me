@@ -1,5 +1,9 @@
 #!/bin/bash
 
+# http://unix.stackexchange.com/questions/89571/how-to-get-volume-level-from-the-command-line
+# http://superuser.com/questions/323119/how-can-i-normalize-audio-using-ffmpeg
+# http://askubuntu.com/questions/229352/how-to-record-output-to-speakers
+
 mkdir -p ~/can-you-hear-me
 
 echo $(date) >> ~/can-you-hear-me/volumes.txt
