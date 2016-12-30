@@ -3,7 +3,7 @@
 # Configuration
 
 # How long you wish to record audio for at a time (s for seconds, m for minutes, h for hours)
-let audioCaptureDuration = "5s"
+let audioCaptureDuration = "30s"
 
 # Where to save the temporary file
 let tempFileLocation = "/tmp/out"
