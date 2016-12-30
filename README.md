@@ -1,5 +1,5 @@
 # can-you-hear-me
-An app to predict and prevent hearing loss due by tracking the output sound volume everyday. It tracks the volume of your output device everyday, and it can show if you are gradually increasing how loud the volume is.
+An app to predict and prevent hearing loss by measuring the output volume everyday. Over time, you can see how much the output volume level has increased (if at all.)
 
 It cannot be used to provide any sort of medical diagonsis. It just records the data but makes no conclusions based on it.
 
@@ -11,8 +11,6 @@ The app records your output audio for 5 seconds everyday (if you put it in your 
 - ffmpeg
 
 - timeout
-
-- ffmpeg
 
 - lame
 
