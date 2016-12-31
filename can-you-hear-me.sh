@@ -3,26 +3,24 @@
 # Configuration
 
 # How long you wish to record audio for at a time (s for seconds, m for minutes, h for hours)
-let audioCaptureDuration = "30s"
-
-# Where to save the temporary file
-let tempFileLocation = "/tmp/out"
+audioCaptureDuration="30s"
 
 # Where to save the volume adjustments
-let volumeLocation = "~/can-you-hear-me/volume.txt"
+volumeLocation="$HOME/can-you-hear-me/volume.txt"
 
 # End configuration
 
-echo $(date) >> '$volumeLocation'
+"date" >> "$volumeLocation"
 
-# record output audio from first output device for x seconds, converting it to wav format
-timeout $audioCaptureDuration parec -d $(pacmd list-sinks | grep -e 'name:' -e 'index' -e 'Speakers' | grep "name" | cut -d "<" -f 2 | cut -d ">" -f 1).monitor | lame -r -V0 - '$tempFileLocation'.wav
-
-# ffmpeg gets the average decibels from sound, puts it in the historical volumes file
-ffmpeg -i '$tempFileLocation'.wav -af "volumedetect" -f null /dev/null 2>&1 | grep "mean_volume" | rev | cut -d " " -f 1-2 | rev >> '$volumeLocation'
-
-# trash the file
-rm '$tempFileLocation'.wav
+parec -d "$(pacmd list-sinks |                                  # list all audio sinks
+grep -e 'name:' -e 'index' -e 'Speakers' |                      # choose the output speakers
+grep 'name' |                                                   # get the name of it
+cut -d '<' -f 2 | 
+cut -d '>' -f 1)".monitor |                                     # format the name so it works with lame
+(timeout $audioCaptureDuration lame -r -V0 -) |                 # record for X seconds to stdout
+ffmpeg -i pipe:0 -af "volumedetect" -f null /dev/null 2>&1 |    # pipe audio to ffmpeg, get mean volume in dB
+grep "mean_volume" | 
+rev | cut -d " " -f 1-2 | rev >> "$volumeLocation"              # extract dB from output; save to file
 
 # Credits
 
