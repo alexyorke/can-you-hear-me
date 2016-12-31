@@ -6,7 +6,7 @@ It cannot be used to provide any sort of medical diagonsis. It just records the 
 Add this line to your crontab file to run the script every six hours everyday: `0 */6 * * * bash /path/to/can-you-hear-me.sh >/dev/null 2>&1`
 ## How it works
 
-The app records your output audio for X seconds everyday (if you put it in your crontab), and uses ffmpeg to find the average decibel output. It then uses ffmpeg to find the average volume of the recording. No temporary files are saved to disk.
+The app records your output audio for X seconds everyday (if you put it in your crontab), and uses ffmpeg to find the average decibel output. No temporary files are saved to disk.
 
 It does not rely on the volume indicator, or any other app-defined volume sliders (like YouTube). Instead, it takes the volume of the raw output after all of the processing the OS does just before you listen to it to ensure accuracy.
 
